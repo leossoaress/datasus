@@ -26,10 +26,8 @@ soap.createClient(url, options, function(err, client) {
       }
   }
 
-  client.consultarEstabelecimentoSaude(args, function(err, result, rawResponse, soapHeader, rawRequest) {
-    
+  client.consultarEstabelecimentoSaude(args, function(err, result, rawResponse, soapHeader, rawRequest) {    
     console.log(result);
-
   });
 
 });
