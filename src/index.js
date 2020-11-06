@@ -1,11 +1,33 @@
 const soap = require('soap');
 
-var url = 'http://servicos.saude.gov.br/cadsus/CadsusService/v5r0?wsdl';
+var url = 'https://servicos.saude.gov.br/cnes/EstabelecimentoSaudeService/v1r0?wsdl';
 
-soap.createClient(url, function(err, client) {
-  var wsSecurity = new soap.WSSecurity('CNES.PUBLICO', 'cnes#2015public');
-  client.setSecurity(wsSecurity);
-  console.log(client);
-  console.log(err);
+const options = {
+  forceSoap12Headers: true,
+};
+
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+
+soap.createClient(url, options, function(err, client) {
+  if(err) return console.log(err);
+  
+  // client.setSecurity(new soap.BasicAuthSecurity('CNES.PUBLICO', 'CNES.PUBLICO'));
+
+  client.setSecurity(new soap.WSSecurity('CNES.PUBLICO', 'cnes#2015public', { hasTimeStamp: false, hasTokenCreated: false, mustUnderstand: true }));
+
+  // console.log(client.describe());
+
+  const args = {
+      'FiltroPesquisaEstabelecimentoSaude': {
+        'CodigoCNES': {
+          'codigo': 2530031
+        }
+      }
+  }
+
+  client.consultarEstabelecimentoSaude(args, function(err, result, rawResponse, soapHeader, rawRequest) {
+    console.log(rawResponse);
+    console.log('\n\n');
+    console.log(rawRequest);
+  });
 });
-
