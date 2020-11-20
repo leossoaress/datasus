@@ -11,9 +11,7 @@ process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 soap.createClient(url, options, function(err, client) {
   if(err) return console.log(err);
   
-  client.setSecurity(new soap.WSSecurity('CADSUS.UNIFESP.SP', '-Watzct-78U_R-5-P-2D9ZDj5i3w8_'));
-
-  console.log(client.describe());
+  client.setSecurity(new soap.WSSecurity('CNES.PUBLICO', 'cnes#2015public', { hasTimeStamp: false, hasTokenCreated: false, mustUnderstand: true }));
 
   const args = {
     'CNESUsuario': {
