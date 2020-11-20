@@ -38,7 +38,7 @@ soap.createClient(url, options, function(err, client) {
     'FiltroPesquisaVinculacaos': {
       'IdentificacaoProfissional': {
         'cns': {
-          'numeroCNS': '898004246128246'
+          'numeroCNS': '700305433066640'
         }
       },
       'IdentificacaoEstabelecimento': {
